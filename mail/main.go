@@ -22,7 +22,6 @@ func SendMail(data []byte) {
 	}
 	var dataJ map[string]any
 	json.Unmarshal(data, &dataJ)
-	fmt.Println(dataJ["flag"])
 	var (
 		smtpHost string
 		smtpPort string
