@@ -92,6 +92,6 @@ func sendEmail(smtpFrom string, smtpTo string, msg string, subject string, smtpU
 	if err := d.DialAndSend(m); err != nil {
 		return err
 	}
-
+	c.IndentedJSON(http.StatusOK, gin.H{"message": "email enviado de " + smtpFrom + " para " + smtpTo})
 	return nil
 }
