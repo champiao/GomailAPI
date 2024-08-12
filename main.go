@@ -14,11 +14,10 @@ import (
 func handler(c *gin.Context) {
 	data, err := io.ReadAll(c.Request.Body)
 	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, "message: could not read request body")
+		c.JSON(http.StatusInternalServerError, "message: could not read request body")
 		return
 	}
-	SendMail(data)
-	c.IndentedJSON(http.StatusOK, "email sent")
+	SendMail(data, c)
 }
 
 func main() {
@@ -31,8 +30,8 @@ func main() {
 	router.Run("localhost:" + getEnv("APP_PORT", ""))
 }
 
-func SendMail(data []byte) {
-	mail.SendMail(data)
+func SendMail(data []byte, c *gin.Context) {
+	mail.SendMail(data, c)
 }
 
 func getEnv(key, fallback string) string {
